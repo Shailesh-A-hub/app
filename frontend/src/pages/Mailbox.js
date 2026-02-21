@@ -138,6 +138,27 @@ export default function Mailbox() {
         </div>
       </div>
 
+      {!connected && connError && (
+        <Card className="bg-red-900/10 border-red-900/30" data-testid="gmail-error-banner">
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-semibold text-red-400">Gmail Not Connected</p>
+                <p className="text-xs text-gray-400 mt-1">{connError}</p>
+                <p className="text-xs text-gray-500 mt-2">To fix: Go to <span className="text-blue-400">Settings</span> tab and update your Gmail App Password, or follow these steps:</p>
+                <ol className="text-xs text-gray-500 mt-1 ml-4 list-decimal space-y-0.5">
+                  <li>Go to <a href="https://myaccount.google.com/security" target="_blank" rel="noreferrer" className="text-blue-400 underline">Google Account Security</a></li>
+                  <li>Enable 2-Step Verification (if not already)</li>
+                  <li>Go to App Passwords and generate a new one for "Mail"</li>
+                  <li>Paste the 16-character password in Settings &gt; Gmail App Password</li>
+                </ol>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4" style={{ height: 'calc(100vh - 220px)' }}>
         {/* Email list */}
         <Card className="bg-[#111827] border-gray-800 lg:col-span-1 overflow-hidden" data-testid="email-list">
