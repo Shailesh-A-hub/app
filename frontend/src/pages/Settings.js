@@ -104,6 +104,64 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
+      {/* Gmail Integration */}
+      <Card className={`border-gray-800 ${gmailStatus.connected ? 'bg-[#111827]' : 'bg-[#111827] border-l-4 border-l-red-500'}`} data-testid="gmail-settings">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-sm uppercase tracking-wider text-gray-400 flex items-center gap-2">
+              <Mail className="w-4 h-4" /> Gmail Integration
+            </CardTitle>
+            <Badge className={gmailStatus.connected ? 'bg-emerald-950/50 text-emerald-400 border-emerald-900/50' : 'bg-red-950/50 text-red-400 border-red-900/50'}>
+              {gmailStatus.connected ? 'Connected' : 'Disconnected'}
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
+              <p className="text-sm font-medium">Gmail Account</p>
+              <p className="text-xs text-gray-500 font-mono">{gmailStatus.email || 'Dpdp210226@gmail.com'}</p>
+            </div>
+          </div>
+          {!gmailStatus.connected && (
+            <>
+              {gmailStatus.error && (
+                <div className="bg-red-900/20 border border-red-900/30 rounded px-3 py-2 text-xs text-red-400">
+                  <AlertTriangle className="w-3 h-3 inline mr-1" /> {gmailStatus.error}
+                </div>
+              )}
+              <div className="bg-[#1F2937] rounded-lg p-4 space-y-3">
+                <p className="text-xs text-gray-400">Gmail requires an <strong className="text-white">App Password</strong> for IMAP/SMTP access:</p>
+                <ol className="text-xs text-gray-500 ml-4 list-decimal space-y-1">
+                  <li>Go to <a href="https://myaccount.google.com/security" target="_blank" rel="noreferrer" className="text-blue-400 underline">Google Account &gt; Security</a></li>
+                  <li>Enable <strong>2-Step Verification</strong> if not already enabled</li>
+                  <li>Search for <strong>App Passwords</strong> and generate one for "Mail"</li>
+                  <li>Paste the 16-character App Password below</li>
+                </ol>
+                <div className="flex gap-2 mt-2">
+                  <Input
+                    type="password"
+                    value={gmailPassword}
+                    onChange={e => setGmailPassword(e.target.value)}
+                    placeholder="Enter 16-character App Password"
+                    className="bg-[#0F172A] border-gray-700 text-white flex-1 font-mono"
+                    data-testid="gmail-password-input"
+                  />
+                  <Button className="bg-blue-600 hover:bg-blue-700" onClick={updateGmailPassword} disabled={gmailSaving} data-testid="save-gmail-btn">
+                    <Key className="w-4 h-4 mr-1.5" /> {gmailSaving ? 'Connecting...' : 'Connect'}
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+          {gmailStatus.connected && (
+            <div className="flex items-center gap-2 text-sm text-emerald-400">
+              <CheckCircle2 className="w-4 h-4" /> Gmail IMAP/SMTP connected and ready for email operations
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Integrations */}
       <Card className="bg-[#111827] border-gray-800" data-testid="integrations-settings">
         <CardHeader className="pb-3">
