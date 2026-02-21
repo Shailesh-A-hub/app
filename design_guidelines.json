@@ -1,0 +1,195 @@
+{
+  "identity": {
+    "persona": "E1: The Anti-AI Designer",
+    "tone": "Tactical, Urgent, Precision, 'War Room' Command Center",
+    "mission": "Create a high-stakes, incident-response interface that feels like a military-grade tool, not a generic SaaS dashboard.",
+    "anti_patterns": [
+      "No generic soft shadows",
+      "No rounded corners > 8px",
+      "No 'friendly' illustrations",
+      "No gradients on text unless for specific 'glitch' effects"
+    ]
+  },
+  "typography": {
+    "fonts": {
+      "headings": {
+        "family": "Chivo, sans-serif",
+        "weights": ["700", "900"],
+        "usage": "Page titles, Metric values, Section headers"
+      },
+      "body": {
+        "family": "Inter, sans-serif",
+        "weights": ["400", "500", "600"],
+        "usage": "General text, Form labels, Table data"
+      },
+      "mono": {
+        "family": "JetBrains Mono, monospace",
+        "weights": ["400", "700"],
+        "usage": "Timers, Logs, IP addresses, Hash values, Code snippets"
+      }
+    },
+    "scale": {
+      "h1": "text-4xl font-black tracking-tight",
+      "h2": "text-2xl font-bold tracking-tight",
+      "h3": "text-xl font-bold",
+      "body": "text-sm leading-relaxed",
+      "small": "text-xs font-medium uppercase tracking-wider text-muted-foreground",
+      "timer": "text-6xl font-mono font-bold tracking-widest tabular-nums"
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": "#0B1220",
+      "surface": "#111827",
+      "surface_highlight": "#1F2937",
+      "border": "#374151",
+      "text": {
+        "primary": "#F9FAFB",
+        "secondary": "#9CA3AF",
+        "muted": "#6B7280"
+      },
+      "brand": {
+        "primary": "#3B82F6",
+        "hover": "#2563EB",
+        "active": "#1D4ED8"
+      },
+      "semantic": {
+        "success": "#10B981",
+        "warning": "#F59E0B",
+        "danger": "#EF4444",
+        "info": "#3B82F6"
+      }
+    },
+    "gradients": {
+      "war_room_header": "linear-gradient(to bottom, rgba(239, 68, 68, 0.2), transparent)",
+      "active_breach_overlay": "radial-gradient(circle at center, rgba(239, 68, 68, 0.15) 0%, transparent 70%)"
+    },
+    "theme_modes": {
+      "dark": {
+        "default": true,
+        "bg_class": "bg-[#0B1220]",
+        "text_class": "text-gray-100"
+      },
+      "light": {
+        "bg_class": "bg-gray-50",
+        "text_class": "text-gray-900"
+      }
+    }
+  },
+  "layout": {
+    "structure": {
+      "sidebar": {
+        "width": "w-64",
+        "bg": "bg-[#0F172A]",
+        "border": "border-r border-gray-800",
+        "position": "fixed left-0 top-0 h-full z-40"
+      },
+      "header": {
+        "height": "h-16",
+        "bg": "bg-[#0B1220]/80 backdrop-blur-md",
+        "border": "border-b border-gray-800",
+        "position": "sticky top-0 z-30"
+      },
+      "main": {
+        "padding": "p-6 md:p-8",
+        "margin": "ml-64",
+        "width": "w-[calc(100%-16rem)]"
+      }
+    },
+    "grid_system": {
+      "dashboard": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6",
+      "war_room": "grid grid-cols-12 gap-6",
+      "card_internal": "flex flex-col gap-4"
+    },
+    "spacing": {
+      "container_padding": "p-6",
+      "section_gap": "gap-8",
+      "item_gap": "gap-4"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-900/20 rounded-md font-medium px-4 py-2 transition-all active:scale-95",
+      "danger": "bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-900/20 rounded-md font-medium animate-pulse-slow",
+      "outline": "border border-gray-700 hover:bg-gray-800 text-gray-300 rounded-md bg-transparent",
+      "ghost": "hover:bg-gray-800 text-gray-400 hover:text-white"
+    },
+    "cards": {
+      "base": "bg-[#111827] border border-gray-800 rounded-lg shadow-sm hover:border-gray-700 transition-colors",
+      "interactive": "cursor-pointer hover:bg-[#161e2e] active:border-blue-500/50",
+      "alert": "border-l-4 border-l-red-500 bg-red-900/10"
+    },
+    "inputs": {
+      "base": "bg-[#1F2937] border-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500 rounded-md h-10 px-3",
+      "search": "pl-9"
+    },
+    "badges": {
+      "success": "bg-emerald-950/50 text-emerald-400 border border-emerald-900/50 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wider",
+      "warning": "bg-amber-950/50 text-amber-400 border border-amber-900/50 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wider",
+      "danger": "bg-red-950/50 text-red-400 border border-red-900/50 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wider",
+      "neutral": "bg-gray-800 text-gray-400 border border-gray-700 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wider"
+    },
+    "tables": {
+      "header": "bg-gray-900/50 text-gray-400 text-xs uppercase tracking-wider font-semibold border-b border-gray-800 h-10 px-4 text-left",
+      "row": "border-b border-gray-800/50 hover:bg-gray-800/50 transition-colors h-14",
+      "cell": "text-sm text-gray-300 px-4"
+    }
+  },
+  "visual_enhancers": {
+    "borders": "1px solid rgba(255,255,255,0.08)",
+    "shadows": {
+      "glow_blue": "0 0 15px rgba(59, 130, 246, 0.15)",
+      "glow_red": "0 0 20px rgba(239, 68, 68, 0.2)"
+    },
+    "textures": {
+      "scanlines": "linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03))"
+    }
+  },
+  "icons": {
+    "library": "lucide-react",
+    "usage": "Use stroke-width={1.5} for a refined, technical look. Size usually 16-20px.",
+    "specific_mappings": {
+      "dashboard": "LayoutDashboard",
+      "war_room": "ShieldAlert",
+      "evidence": "FileLock",
+      "mailbox": "Mail",
+      "settings": "Settings",
+      "attack_vector": "Radar",
+      "reports": "FileText",
+      "user": "User",
+      "notification": "Bell",
+      "search": "Search"
+    }
+  },
+  "motion": {
+    "transitions": "transition-all duration-200 ease-in-out",
+    "animations": {
+      "pulse_danger": "animate-pulse",
+      "slide_in": "animate-in slide-in-from-right-4 duration-300",
+      "fade_in": "animate-in fade-in duration-300"
+    }
+  },
+  "universal_guidelines": [
+    "Always use a dark, high-contrast theme by default.",
+    "Interactive elements must have clear hover and active states.",
+    "Use monospace fonts for all numerical data, IDs, and timestamps.",
+    "Ensure the 'War Room' mode visually dominates the screen when active (Red borders/headers).",
+    "Do not use gradients for backgrounds unless it's a subtle glow.",
+    "Charts should use the specific semantic colors defined (Success/Warning/Danger).",
+    "All buttons must include `data-testid` attributes."
+  ],
+  "image_urls": {
+    "logo_placeholder": "https://lucide.dev/icons/shield-alert",
+    "background_texture": "https://images.unsplash.com/photo-1652175083753-1fbb5f793dc9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwY3liZXJzZWN1cml0eSUyMHNoaWVsZCUyMGxvZ28lMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3NzE2NzAyNjJ8MA&ixlib=rb-4.1.0&q=85"
+  },
+  "instructions_to_main_agent": [
+    "1. Update tailwind.config.js to include the custom colors and fonts (Chivo, Inter, JetBrains Mono).",
+    "2. Install necessary fonts via Google Fonts in index.html or import in CSS.",
+    "3. Create a 'Layout' component that handles the Sidebar and Header structure.",
+    "4. Implement the 'War Room' context/store to toggle the global urgency state (Red Header).",
+    "5. Use Recharts for all data visualization (Attack Vector, stats).",
+    "6. Build the 'Timer' component using the Monospace font.",
+    "7. Ensure the 'Mailbox' looks like a real email client (Sidebar list + Main view).",
+    "8. Use the `data-testid` attribute on all buttons and inputs."
+  ]
+}
