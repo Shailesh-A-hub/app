@@ -14,16 +14,41 @@ export default function SettingsPage() {
   const { API, authHeaders, theme, toggleTheme } = useApp();
   const [settings, setSettings] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [gmailStatus, setGmailStatus] = useState({ connected: false, error: '' });
+  const [gmailPassword, setGmailPassword] = useState('');
+  const [gmailSaving, setGmailSaving] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get(`${API}/settings`, authHeaders());
-        setSettings(res.data);
+        const [settRes, gmailRes] = await Promise.all([
+          axios.get(`${API}/settings`, authHeaders()),
+          axios.get(`${API}/emails/connection-status`, authHeaders()),
+        ]);
+        setSettings(settRes.data);
+        setGmailStatus(gmailRes.data);
       } catch {}
     };
     fetch();
   }, [API, authHeaders]);
+
+  const updateGmailPassword = async () => {
+    if (!gmailPassword.trim()) return toast.error('Enter an App Password');
+    setGmailSaving(true);
+    try {
+      const res = await axios.post(`${API}/settings/gmail-password`, { password: gmailPassword.trim() }, authHeaders());
+      if (res.data.ok) {
+        toast.success('Gmail connected successfully!');
+        setGmailStatus({ connected: true, error: '' });
+        setGmailPassword('');
+      } else {
+        toast.error(res.data.error || 'Connection failed');
+        setGmailStatus({ connected: false, error: res.data.error });
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.detail || 'Failed to update');
+    } finally { setGmailSaving(false); }
+  };
 
   const updateSetting = async (key, value) => {
     const updated = { ...settings, [key]: value };
