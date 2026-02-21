@@ -769,6 +769,33 @@ async def update_settings(request: Request):
     await db.settings.update_one({"_id": "app_settings"}, {"$set": body})
     return {"ok": True}
 
+@api_router.post("/settings/gmail-password")
+async def update_gmail_password(request: Request):
+    body = await request.json()
+    new_password = body.get("password", "")
+    if not new_password:
+        raise HTTPException(400, "Password is required")
+    gmail_svc.password = new_password
+    ok = gmail_svc.test_connection()
+    if ok:
+        # Update .env file
+        env_path = ROOT_DIR / '.env'
+        lines = env_path.read_text().split('\n')
+        new_lines = []
+        found = False
+        for line in lines:
+            if line.startswith('GMAIL_PASSWORD='):
+                new_lines.append(f'GMAIL_PASSWORD="{new_password}"')
+                found = True
+            else:
+                new_lines.append(line)
+        if not found:
+            new_lines.append(f'GMAIL_PASSWORD="{new_password}"')
+        env_path.write_text('\n'.join(new_lines))
+        return {"ok": True, "connected": True, "message": "Gmail connected successfully!"}
+    else:
+        return {"ok": False, "connected": False, "error": gmail_svc.last_error}
+
 
 # ══════════════════════════════════════
 # REPORTS ROUTES
