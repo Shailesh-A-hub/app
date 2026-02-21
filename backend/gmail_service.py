@@ -20,6 +20,7 @@ class GmailService:
         self.smtp_server = "smtp.gmail.com"
         self.smtp_port = 587
         self.connected = False
+        self.last_error = ""
 
     def test_connection(self):
         try:
@@ -27,17 +28,31 @@ class GmailService:
             mail.login(self.email, self.password)
             mail.logout()
             self.connected = True
+            self.last_error = ""
             logger.info("Gmail IMAP connection successful")
             return True
+        except imaplib.IMAP4.error as e:
+            err_msg = str(e)
+            if 'AUTHENTICATIONFAILED' in err_msg:
+                self.last_error = "Authentication failed. Gmail requires an App Password for IMAP access. Go to Google Account > Security > 2-Step Verification > App Passwords to generate one."
+            else:
+                self.last_error = f"IMAP error: {err_msg}"
+            logger.error(f"Gmail IMAP connection failed: {self.last_error}")
+            self.connected = False
+            return False
         except Exception as e:
-            logger.error(f"Gmail IMAP connection failed: {e}")
+            self.last_error = f"Connection error: {str(e)}"
+            logger.error(f"Gmail connection failed: {e}")
             self.connected = False
             return False
 
     def read_emails(self, folder="INBOX", limit=50, since=None):
+        emails = []
         try:
             mail = imaplib.IMAP4_SSL(self.imap_server)
             mail.login(self.email, self.password)
+            self.connected = True
+            self.last_error = ""
             mail.select(folder, readonly=True)
 
             criteria = 'ALL'
@@ -47,7 +62,6 @@ class GmailService:
             _, data = mail.search(None, criteria)
             email_ids = data[0].split()
 
-            emails = []
             for eid in reversed(email_ids[-limit:]):
                 try:
                     _, msg_data = mail.fetch(eid, '(RFC822)')
@@ -88,10 +102,20 @@ class GmailService:
                     continue
 
             mail.logout()
-            return emails
+        except imaplib.IMAP4.error as e:
+            err_msg = str(e)
+            if 'AUTHENTICATIONFAILED' in err_msg:
+                self.last_error = "Authentication failed. Gmail requires an App Password (not your regular password). Go to Google Account > Security > 2-Step Verification > App Passwords."
+            else:
+                self.last_error = f"IMAP error: {err_msg}"
+            self.connected = False
+            logger.error(f"IMAP read error: {self.last_error}")
         except Exception as e:
+            self.last_error = f"Connection error: {str(e)}"
+            self.connected = False
             logger.error(f"IMAP read error: {e}")
-            return []
+
+        return emails
 
     def send_email(self, to, subject, body_html, attachments=None):
         try:
@@ -114,7 +138,12 @@ class GmailService:
             server.quit()
             logger.info(f"Email sent to {to}: {subject}")
             return True
+        except smtplib.SMTPAuthenticationError:
+            self.last_error = "SMTP authentication failed. Gmail requires an App Password for SMTP access."
+            logger.error(f"SMTP auth failed for {to}")
+            return False
         except Exception as e:
+            self.last_error = f"SMTP error: {str(e)}"
             logger.error(f"SMTP send error: {e}")
             return False
 
