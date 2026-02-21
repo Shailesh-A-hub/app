@@ -39,8 +39,8 @@ gmail_svc = GmailService(
 pdf_svc = PDFService(ROOT_DIR / 'pdfs')
 
 JWT_SECRET = os.environ.get('JWT_SECRET', 'dpdp-shield-secret')
-ADMIN_EMAIL = "Dpdp210226@gmail.com"
-ADMIN_PASSWORD = "...sarvesh01"
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', '')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '')
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
