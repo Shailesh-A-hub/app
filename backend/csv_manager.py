@@ -156,41 +156,50 @@ class CSVManager:
         existing = self.read_csv('reports_sent.csv')
         if existing:
             return
+
+    def seed_sample_incident_with_pdfs(self, pdf_svc):
+        """Seed sample incident WITH actual PDFs generated"""
+        existing = self.read_csv('reports_sent.csv')
+        if existing:
+            return
         now = datetime.now(timezone.utc).isoformat()
-        sample_reports = [
-            {
-                'report_id': 'REP-000001',
-                'generated_at': now,
-                'generated_by': 'SYSTEM',
-                'report_type': 'DPB_NOTICE',
-                'incident_id': 'INC-001',
-                'request_id': '',
-                'customer_id': '',
-                'recipient': 'dpb@example.gov.in',
-                'delivery_channel': 'EMAIL',
-                'delivery_status': 'DELIVERED',
-                'pdf_filename': 'dpb_notice_INC-001.pdf',
-                'pdf_sha256': 'a1b2c3d4e5f6',
-                'notes': 'Sample closed incident DPB notice',
-            },
-            {
-                'report_id': 'REP-000002',
-                'generated_at': now,
-                'generated_by': 'SYSTEM',
-                'report_type': 'AUDIT_REPORT',
-                'incident_id': 'INC-001',
-                'request_id': '',
-                'customer_id': '',
-                'recipient': 'SELF_DOWNLOAD',
-                'delivery_channel': 'DOWNLOAD_ONLY',
-                'delivery_status': 'DOWNLOADED',
-                'pdf_filename': 'audit_report_INC-001.pdf',
-                'pdf_sha256': 'f6e5d4c3b2a1',
-                'notes': 'Sample closed incident audit report',
-            },
-        ]
-        for r in sample_reports:
-            self.append_row('reports_sent.csv', r)
+        sample_incident = {
+            'incident_id': 'INC-001',
+            'discovery_time': now,
+            'nature': 'Unauthorized access to personal data',
+            'systems': 'Customer Database',
+            'categories': 'Name, Email, Phone',
+            'affected_count': 30,
+            'description': 'Sample closed incident for demo purposes',
+            'closure_time': now,
+            'severity': 'HIGH',
+            'vector': 'API',
+        }
+        # Generate actual DPB Notice PDF
+        try:
+            pdf_bytes1, sha1, fn1 = pdf_svc.generate_dpb_notice(sample_incident)
+            self.append_row('reports_sent.csv', {
+                'report_id': 'REP-000001', 'generated_at': now, 'generated_by': 'SYSTEM',
+                'report_type': 'DPB_NOTICE', 'incident_id': 'INC-001',
+                'request_id': '', 'customer_id': '', 'recipient': 'dpb@meity.gov.in',
+                'delivery_channel': 'EMAIL', 'delivery_status': 'DELIVERED',
+                'pdf_filename': fn1, 'pdf_sha256': sha1, 'notes': 'Sample closed incident DPB notice',
+            })
+        except Exception as e:
+            logging.getLogger(__name__).error(f"Seed DPB PDF error: {e}")
+        # Generate actual Audit Report PDF
+        try:
+            timeline = [{"time": now, "event": "Breach discovered"}, {"time": now, "event": "Incident closed"}]
+            pdf_bytes2, sha2, fn2 = pdf_svc.generate_audit_report(sample_incident, timeline)
+            self.append_row('reports_sent.csv', {
+                'report_id': 'REP-000002', 'generated_at': now, 'generated_by': 'SYSTEM',
+                'report_type': 'AUDIT_REPORT', 'incident_id': 'INC-001',
+                'request_id': '', 'customer_id': '', 'recipient': 'SELF_DOWNLOAD',
+                'delivery_channel': 'DOWNLOAD_ONLY', 'delivery_status': 'DOWNLOADED',
+                'pdf_filename': fn2, 'pdf_sha256': sha2, 'notes': 'Sample closed incident audit report',
+            })
+        except Exception as e:
+            logging.getLogger(__name__).error(f"Seed Audit PDF error: {e}")
 
     def find_customer(self, customer_id):
         rows = self.read_csv('customers.csv')
