@@ -31,6 +31,7 @@ export default function Mailbox() {
   const [emails, setEmails] = useState([]);
   const [mailReplies, setMailReplies] = useState([]);
   const [connected, setConnected] = useState(false);
+  const [connError, setConnError] = useState('');
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -48,6 +49,7 @@ export default function Mailbox() {
       ]);
       setEmails(emailRes.data.emails || []);
       setConnected(emailRes.data.connected);
+      setConnError(emailRes.data.error || '');
       setMailReplies(repliesRes.data || []);
     } catch {} finally { setRefreshing(false); }
   }, [API, authHeaders]);
