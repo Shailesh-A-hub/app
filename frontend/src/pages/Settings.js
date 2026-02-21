@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '@/contexts/AppContext';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { Settings, Sun, Moon, Shield, Zap, AlertTriangle, Users, Eye, EyeOff } from 'lucide-react';
+import { Settings, Sun, Moon, Shield, Zap, AlertTriangle, Users, Eye, EyeOff, Mail, CheckCircle2, Key } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
+import { Input } from '@/components/ui/input';
 
 export default function SettingsPage() {
   const { API, authHeaders, theme, toggleTheme } = useApp();
