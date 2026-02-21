@@ -1,0 +1,3 @@
+report_id,generated_at,generated_by,report_type,incident_id,request_id,customer_id,recipient,delivery_channel,delivery_status,pdf_filename,pdf_sha256,notes
+REP-000001,2026-02-21T10:46:10.904130+00:00,SYSTEM,DPB_NOTICE,INC-001,,,dpb@example.gov.in,EMAIL,DELIVERED,dpb_notice_INC-001.pdf,a1b2c3d4e5f6,Sample closed incident DPB notice
+REP-000002,2026-02-21T10:46:10.904130+00:00,SYSTEM,AUDIT_REPORT,INC-001,,,SELF_DOWNLOAD,DOWNLOAD_ONLY,DOWNLOADED,audit_report_INC-001.pdf,f6e5d4c3b2a1,Sample closed incident audit report

@@ -1,0 +1,1 @@
+request_id,received_at,from_email,subject,body,customer_id,intent,otp_status,otp_sent_at,otp_verified_at,action_taken,action_status,replied_at,pdf_files,notes
