@@ -1,3 +1,3 @@
 report_id,generated_at,generated_by,report_type,incident_id,request_id,customer_id,recipient,delivery_channel,delivery_status,pdf_filename,pdf_sha256,notes
-REP-000001,2026-02-21T11:35:33.108515+00:00,SYSTEM,DPB_NOTICE,INC-001,,,dpb@meity.gov.in,EMAIL,DELIVERED,dpb_notice_INC-001.pdf,77418e6edf61e7683c62ce3ccccd5fcc7bfa38a89430b4f1aff17d5497d79d81,Sample closed incident DPB notice
+REP-000001,2026-02-21T11:35:33.108515+00:00,SYSTEM,DPB_NOTICE,INC-001,,,dpb@meity.gov.in,EMAIL,DOWNLOADED,dpb_notice_INC-001.pdf,77418e6edf61e7683c62ce3ccccd5fcc7bfa38a89430b4f1aff17d5497d79d81,Sample closed incident DPB notice
 REP-000002,2026-02-21T11:35:33.108515+00:00,SYSTEM,AUDIT_REPORT,INC-001,,,SELF_DOWNLOAD,DOWNLOAD_ONLY,DOWNLOADED,audit_report_INC-001.pdf,794a3445728c72af4d7f19bb095852725abd3724241d378852616063074545e2,Sample closed incident audit report
