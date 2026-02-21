@@ -174,7 +174,7 @@ export default function Customers() {
       {/* Edit Dialog */}
       <Dialog open={!!editDialog} onOpenChange={() => setEditDialog(null)}>
         <DialogContent className="bg-[#111827] border-gray-800 text-gray-100">
-          <DialogHeader><DialogTitle>Edit Customer {editDialog?.customer_id}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>Edit Customer {editDialog?.customer_id}</DialogTitle><DialogDescription className="text-gray-500">Update customer information</DialogDescription></DialogHeader>
           <div className="space-y-3 mt-2">
             <div><label className="text-xs text-gray-500 uppercase tracking-wider">Name</label><Input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="bg-[#1F2937] border-gray-700 text-white mt-1" data-testid="edit-name-input" /></div>
             <div><label className="text-xs text-gray-500 uppercase tracking-wider">Email</label><Input value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} className="bg-[#1F2937] border-gray-700 text-white mt-1" data-testid="edit-email-input" /></div>
