@@ -389,17 +389,22 @@ async def reset_breach():
 # ══════════════════════════════════════
 @api_router.get("/emails")
 async def get_emails():
-    try:
-        emails = gmail_svc.read_emails(limit=30)
-        return {"emails": emails, "connected": True}
-    except Exception as e:
-        logger.error(f"Email fetch error: {e}")
-        return {"emails": [], "connected": False, "error": str(e)}
+    emails = gmail_svc.read_emails(limit=30)
+    return {
+        "emails": emails,
+        "connected": gmail_svc.connected,
+        "error": gmail_svc.last_error if not gmail_svc.connected else "",
+    }
 
 @api_router.get("/emails/connection-status")
 async def email_connection_status():
     ok = gmail_svc.test_connection()
-    return {"connected": ok, "email": gmail_svc.email}
+    return {
+        "connected": ok,
+        "email": gmail_svc.email,
+        "error": gmail_svc.last_error if not ok else "",
+        "help": "Gmail requires an App Password for IMAP/SMTP. Go to Google Account > Security > 2-Step Verification > App Passwords to generate one. Update GMAIL_PASSWORD in Settings." if not ok else "",
+    }
 
 @api_router.get("/mail-replies")
 async def get_mail_replies():
