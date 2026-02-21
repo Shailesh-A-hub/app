@@ -159,7 +159,7 @@ export default function Mailbox() {
         </Card>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4" style={{ height: 'calc(100vh - 220px)' }}>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4" style={{ minHeight: '400px', maxHeight: 'calc(100vh - 300px)' }}>
         {/* Email list */}
         <Card className="bg-[#111827] border-gray-800 lg:col-span-1 overflow-hidden" data-testid="email-list">
           <CardHeader className="py-3 px-4 border-b border-gray-800">
