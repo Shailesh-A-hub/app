@@ -1,3 +1,6 @@
 report_id,generated_at,generated_by,report_type,incident_id,request_id,customer_id,recipient,delivery_channel,delivery_status,pdf_filename,pdf_sha256,notes
 REP-000001,2026-02-21T11:35:33.108515+00:00,SYSTEM,DPB_NOTICE,INC-001,,,dpb@meity.gov.in,EMAIL,DOWNLOADED,dpb_notice_INC-001.pdf,77418e6edf61e7683c62ce3ccccd5fcc7bfa38a89430b4f1aff17d5497d79d81,Sample closed incident DPB notice
 REP-000002,2026-02-21T11:35:33.108515+00:00,SYSTEM,AUDIT_REPORT,INC-001,,,SELF_DOWNLOAD,DOWNLOAD_ONLY,DOWNLOADED,audit_report_INC-001.pdf,794a3445728c72af4d7f19bb095852725abd3724241d378852616063074545e2,Sample closed incident audit report
+REP-000003,2026-02-21T11:38:41.216948+00:00,SYSTEM,DPB_NOTICE,INC-968,,,dpb@meity.gov.in,DOWNLOAD_ONLY,GENERATED,dpb_notice_INC-968.pdf,5a381bbbfa1c39ae8d09810d0f37ca4bbbf2b7e20f3165f187db2c0712a6d305,DPB Notice generated
+REP-000004,2026-02-21T11:38:41.379659+00:00,SYSTEM,CUSTOMER_BREACH_NOTICE,INC-968,,,BULK(31),EMAIL,SENT,customer_breach_notice_INC-968.pdf,b6e51bb1ba4fe080de6907ba9d311461085f0f8375a51cb20a73513edff8da3a,Broadcast to 31 users
+REP-000005,2026-02-21T11:38:41.867489+00:00,SYSTEM,AUDIT_REPORT,INC-968,,,SELF_DOWNLOAD,DOWNLOAD_ONLY,GENERATED,audit_report_INC-968.pdf,87748be6e4b4b6fa4025f2271a9cf37efd4d0cd804f8f1bce84f8987d2b98c82,"Incident closed, audit report generated"
