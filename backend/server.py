@@ -52,7 +52,7 @@ logger = logging.getLogger(__name__)
 @app.on_event("startup")
 async def startup():
     csv_mgr.seed_customers(30)
-    csv_mgr.seed_sample_incident()
+    csv_mgr.seed_sample_incident_with_pdfs(pdf_svc)
     # Store breach state in MongoDB
     existing = await db.breach_state.find_one({"_id": "current"})
     if not existing:
@@ -72,6 +72,7 @@ async def startup():
             "closed": False,
             "closed_at": None,
             "timeline": [],
+            "description": "",
         })
     # Store settings in MongoDB
     existing_settings = await db.settings.find_one({"_id": "app_settings"})
@@ -86,7 +87,9 @@ async def startup():
         })
     # Store OTPs in MongoDB
     await db.otps.create_index("expires_at", expireAfterSeconds=0)
-    logger.info("DPDP Shield started. Customers seeded.")
+    # Test Gmail connection on startup
+    gmail_ok = gmail_svc.test_connection()
+    logger.info(f"DPDP Shield started. Customers seeded. Gmail: {'connected' if gmail_ok else 'NOT connected - ' + gmail_svc.last_error}")
 
 @app.on_event("shutdown")
 async def shutdown():
